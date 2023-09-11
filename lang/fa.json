@@ -1,0 +1,6 @@
+{
+    "The :attribute must be at least :length characters and contain at least one uppercase character, one number, and one special character.": "این فیلد باید حداقل :length کاراکتر باشد و شامل یک حرف کوچک یا بزرگ و یک شماره و یک حرف خاص باشد",
+    "The provided password was incorrect.": "رمز عبور فرستاده شده نادرست است",
+    "THIS ACTION IS UNAUTHORIZED.": "دسترسی به اینکار مجاز نیست",
+    "Please wait before retrying.": "لطفا قبل از تلاش مجدد صبر کنید"
+}
