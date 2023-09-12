@@ -16,11 +16,9 @@ class QuestionsController extends APIController
      */
     public function index()
     {
-        $questions = Question::paginate(5);
+        $questions = Question::all();
         return $this->SuccessResponse(200, [
             'data' => QuestionsResource::collection($questions),
-            'links' => QuestionsResource::collection($questions)->response()->getData()->links,
-            'meta' => QuestionsResource::collection($questions)->response()->getData()->meta,
         ]);
     }
 
