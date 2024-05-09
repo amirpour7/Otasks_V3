@@ -46,7 +46,7 @@ class QuestionsController extends APIController
 
         DB::commit();
 
-        return $this->SuccessResponse(201, new QuestionsResource($question), 'سوال شما با موفقیت ثبت شد.');
+        return $this->SuccessResponse(201, new QuestionsResource($question), 'سوال شما با موفقیت ایجاد شد.');
     }
 
     /**
