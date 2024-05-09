@@ -7,7 +7,7 @@
 
 use App\Models\Question;
 
-//Generate Transaction Number
+//Generate Random Number
 if (!function_exists('rand_nm')) {
     function rand_nm()
     {
