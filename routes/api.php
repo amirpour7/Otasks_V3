@@ -21,4 +21,4 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::apiResource('questions', QuestionsController::class);
-
+Route::post('questions/reply', [QuestionsController::class, 'reply']);
