@@ -85,16 +85,35 @@ class QuestionsController extends APIController
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request, Question $question)
     {
-        //
+
+        $validator = Validator::make($request->all(), [
+            'secret' => 'required|string|min:65|max:65',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->ErrorResponse(422, $validator->messages());
+        }
+
+        if ($request->secret !== env('API_KEY')) {
+            return $this->ErrorResponse(403, 'شما امکان حذف سوال را ندارید!!!');
+        }
+
+        DB::beginTransaction();
+
+        $question->delete();
+
+        DB::commit();
+
+        return $this->SuccessResponse(200, null, 'سوال مورد نظر با موفقیت حذف شد.');
     }
 
     public function reply(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'secret' => 'required|string|min:65|max:65',
-            'code' => 'required|string|integer|regex:/^[0-9]+$/u',
+            'question' => 'required|integer|regex:/^[0-9]+$/u|min:1',
             'reply' => 'required|string|regex:/^[- 0-9 ۰-۹ a-z & A-Z  آ-ی . : ؛ ، , @ ? ؟ ) ( \n \r \t]+$/u'
         ]);
 
@@ -106,11 +125,7 @@ class QuestionsController extends APIController
             return $this->ErrorResponse(403, 'شما امکان پاسخ دادن به سوالات را ندارید!!!');
         }
 
-        $question = Question::where('code', $request->code)->first();
-
-        if (!$question) {
-            return $this->ErrorResponse(404, 'سوال مورد نظر پیدا نشد!!!');
-        }
+        $question = Question::findOrFail($request->question);
 
         DB::beginTransaction();
 
